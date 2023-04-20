@@ -97,9 +97,9 @@ public class RaamatudProgramm extends Application {
          */
 
         //peaHBox.getChildren().add(tegevusedVBox);
-        //grupp.getChildren().add(peaHBox);
         peaBorder.setCenter(tegevusedVBox);
-        Scene scene = new Scene(peaBorder);
+        grupp.getChildren().add(peaBorder);
+        Scene scene = new Scene(grupp);
 
 
         //tegevused
