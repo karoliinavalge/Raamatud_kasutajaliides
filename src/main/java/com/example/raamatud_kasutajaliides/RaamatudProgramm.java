@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -40,31 +41,54 @@ public class RaamatudProgramm extends Application {
 
         //peaekraan
         Group grupp = new Group();
-
-        /*
-        GridPane ruudustik = new GridPane();
-        ruudustik.setVgap(3);
-        ruudustik.setHgap(3);
-         */
-
+        BorderPane peaBorder = new BorderPane();
         VBox lugemiseVBox = new VBox();
         VBox tegevusedVBox = new VBox();
         HBox peaHBox = new HBox();
 
         lugemiseVBox.setSpacing(7);
-        tegevusedVBox.setSpacing(7);
-        peaHBox.setSpacing(10);
-        peaHBox.setPadding(new Insets(10, 10, 10, 10));
+        tegevusedVBox.setSpacing(10);
+        tegevusedVBox.setPadding(new Insets(30, 30, 30, 30));
+        //peaHBox.setSpacing(10);
+        //peaHBox.setPadding(new Insets(30, 30, 30, 30));
+        peaBorder.setPrefSize(250, 300);
+        peaBorder.setMinWidth(250);
+        peaBorder.setMinHeight(300);
 
+
+        //Raamatute nimekirjad
         Button loetud = new Button("Loetud raamatute nimekiri");
         loetud.setPrefWidth(200);
         Button loen = new Button("Lugemisel raamatute nimekiri");
         loen.setPrefWidth(200);
+        Button tahanLugeda = new Button("Tahan lugeda");
+        tahanLugeda.setPrefWidth(200);
 
-        Button lisaRaamat1 = new Button("Lisa raamat");
-        lisaRaamat1.setPrefWidth(100);
-        Button lisaRaamat2 = new Button("Lisa raamat");
-        lisaRaamat2.setPrefWidth(100);
+        lugemiseVBox.getChildren().addAll(loetud, loen, tahanLugeda);
+
+        Text tekst = new Text("Mida soovid teha?");
+        tegevusedVBox.getChildren().add(tekst);
+
+        //Tegevused
+        Button lisaRaamat = new Button("Lisa raamat");
+        Button lisaLehekülgi = new Button("Lisa raamat");
+        Button hakkasinLugema = new Button("Lisa raamat");
+        Button lugesinLõpuni = new Button("Lugesin raamatu lõpuni");
+        Button valiJuhuslik = new Button("Vali juhuslik raamat");
+        Button kuva = new Button("Kuva nimekirjad");
+
+
+        Button[] tegevused = {lisaRaamat, lisaLehekülgi, hakkasinLugema, lugesinLõpuni,
+        valiJuhuslik, kuva};
+
+
+        for (Button nupp : tegevused) {
+            nupp.setPrefWidth(200);
+            nupp.setPrefHeight(30);
+            tegevusedVBox.getChildren().add(nupp);
+        }
+
+
 
         /*
         ruudustik.add(loen, 2, 2);
@@ -72,14 +96,18 @@ public class RaamatudProgramm extends Application {
         grupp.getChildren().addAll(ruudustik);
          */
 
-        tegevusedVBox.getChildren().addAll(lisaRaamat1, lisaRaamat2);
-        lugemiseVBox.getChildren().addAll(loetud, loen);
-        peaHBox.getChildren().addAll(lugemiseVBox, tegevusedVBox);
-        grupp.getChildren().add(peaHBox);
-        Scene scene = new Scene(grupp);
+        //peaHBox.getChildren().add(tegevusedVBox);
+        //grupp.getChildren().add(peaHBox);
+        peaBorder.setCenter(tegevusedVBox);
+        Scene scene = new Scene(peaBorder);
+
 
         //tegevused
-        kinnita.setOnMouseClicked(e -> primaryStage.setScene(scene));
+        kinnita.setOnMouseClicked(e -> {
+            primaryStage.setScene(scene);
+            primaryStage.setMinWidth(260);
+            primaryStage.setMinHeight(350);
+        });
         primaryStage.setScene(algus);
         primaryStage.show();
     }
