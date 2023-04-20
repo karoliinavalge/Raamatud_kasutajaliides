@@ -20,21 +20,21 @@ public class RaamatudProgramm extends Application {
     @Override
     public void start(Stage primaryStage) {
 
- Stage sisselogimine = new Stage();
- Group SLgrupp = new Group();
- Text sisestaNimi = new Text(50, 50, "Sisestage oma nimi:");
- TextField sisend = new TextField();
- SLgrupp.getChildren().add(sisestaNimi);
- SLgrupp.getChildren().add(sisend);
- Scene algus = new Scene(SLgrupp, 500, 500);
- sisselogimine.setScene(algus);
- sisselogimine.show();
+         //sisselogimise ekraan
+         Group SLgrupp = new Group();
+         Text sisestaNimi = new Text(50, 50, "Sisestage oma nimi:");
+         TextField sisend = new TextField();
+         Button kinnita = new Button("Logi sisse");
+         SLgrupp.getChildren().add(sisestaNimi);
+         SLgrupp.getChildren().add(sisend);
+         SLgrupp.getChildren().add(kinnita);
+         Scene algus = new Scene(SLgrupp, 500, 500);
 
 
 
 
 
-
+        //peaekraan
         Group grupp = new Group();
 
         GridPane ruudustik = new GridPane();
@@ -45,10 +45,11 @@ public class RaamatudProgramm extends Application {
         ruudustik.add(loen, 2, 2);
         ruudustik.add(loetud, 2, 3);
         grupp.getChildren().addAll(ruudustik);
-
-
         Scene scene = new Scene(grupp, 500, 500);
-        primaryStage.setScene(scene);
+
+        //tegevused
+        kinnita.setOnMouseClicked(e -> primaryStage.setScene(scene));
+        primaryStage.setScene(algus);
         primaryStage.show();
     }
 }
