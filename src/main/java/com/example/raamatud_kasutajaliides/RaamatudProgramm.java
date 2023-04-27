@@ -200,7 +200,7 @@ public class RaamatudProgramm extends Application {
             primaryStage.setMinHeight(350);
         });
 
-        //minu osa
+
 
         primaryStage.setScene(algus);
         primaryStage.show();
