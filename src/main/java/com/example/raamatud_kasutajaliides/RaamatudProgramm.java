@@ -99,6 +99,30 @@ public class RaamatudProgramm extends Application {
         Group LLgrupp = new Group();
         VBox LLVBox = new VBox();
 
+
+        //Vali juhuslik raamat
+        Group JRgrupp = new Group();
+        VBox JRVBox = new VBox();
+        Text valiNimekiri = new Text("Millisest nimekirjast soovite raamatud valida?");
+        Button valiHetkel = new Button("Hetkel loen");
+        Button valiLoetud = new Button("Loetud raamatud");
+        Button valiTahan = new Button("Tahan lugeda");
+        Text juhuslik = new Text("");
+        JRVBox.getChildren().addAll(valiNimekiri, valiHetkel, valiLoetud, valiTahan, juhuslik);
+        valiHetkel.setOnMouseClicked(e -> {
+            juhuslik.setText("Juhuslikult valitud raamat on \"" + hetkelLoen.valiSuvaline().getPealkiri() + "\"" );
+        });
+        valiLoetud.setOnMouseClicked(e -> {
+            juhuslik.setText("Juhuslikult valitud raamat on \"" + loetudRaamatud.valiSuvaline().getPealkiri() + "\"" );
+        });
+        valiTahan.setOnMouseClicked(e -> {
+            juhuslik.setText("Juhuslikult valitud raamat on \"" + tahanLugeda.valiSuvaline().getPealkiri() + "\"" );
+        });
+        JRgrupp.getChildren().add(JRVBox);
+        Scene JRstseen = new Scene(JRgrupp);
+
+        valiJuhuslik.setOnMouseClicked(e -> primaryStage.setScene(JRstseen));
+
         //Kuva nimekirjad tseen
         Group KNgrupp = new Group();
         HBox KNHBox = new HBox();
