@@ -31,6 +31,12 @@ public class RaamatudProgramm extends Application {
         TahanLugeda tahanLugeda = new TahanLugeda();
         HetkelLoen hetkelLoen = new HetkelLoen();
 
+        //Test
+        Raamat raamat1 = new Raamat("Tõde ja õigus I", "A. H. Tammsaare", 467, 350);
+        Raamat raamat2 = new Raamat("Kevade", "Oskar Luts", 314, 288);
+        hetkelLoen.lisaRaamat(raamat1);
+        hetkelLoen.lisaRaamat(raamat2);
+
          //sisselogimise ekraan
          Group SLgrupp = new Group();
          VBox SLVbox = new VBox();
@@ -99,6 +105,27 @@ public class RaamatudProgramm extends Application {
         Group LLgrupp = new Group();
         VBox LLVBox = new VBox();
 
+        //Vormindus
+        LLVBox.setPadding(new Insets(30, 30, 30, 30));
+        LLVBox.setSpacing(10);
+
+        LLVBox.getChildren().add(new Text("Hetkel loetavad raamatud:"));
+        for (Raamat loetavRaamat : hetkelLoen.raamatud) {
+            LLVBox.getChildren().add(new Button(loetavRaamat.getPealkiri() + " "
+                    + loetavRaamat.getAutor()));
+        }
+
+        LLgrupp.getChildren().addAll(new Text("Millise raamatu lõpetasid?"), LLVBox);
+        Scene LLtseen = new Scene(LLgrupp);
+
+        //lugesinLõpuni nupu funktsionaalsus
+        lugesinLõpuni.setOnMouseClicked(e -> {
+            primaryStage.setScene(LLtseen);
+            primaryStage.setHeight(LLVBox.getHeight() + 40);
+            primaryStage.setWidth(LLVBox.getWidth());
+            primaryStage.setResizable(false);
+        });
+
         //Kuva nimekirjad tseen
         Group KNgrupp = new Group();
         HBox KNHBox = new HBox();
@@ -148,7 +175,7 @@ public class RaamatudProgramm extends Application {
         Scene KNtseen = new Scene(KNgrupp);
 
 
-        //Nuppude funktsionaalsused
+        //Kuva nupu funktsionaalsus
         kuva.setOnMouseClicked(e -> {
             primaryStage.setScene(KNtseen);
             primaryStage.setHeight(KNHBox.getHeight() + 40);
