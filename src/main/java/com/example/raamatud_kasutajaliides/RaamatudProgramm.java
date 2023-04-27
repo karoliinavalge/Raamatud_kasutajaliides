@@ -13,7 +13,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.io.*;
+import java.util.Arrays;
 
 
 public class RaamatudProgramm extends Application {
@@ -147,6 +148,8 @@ public class RaamatudProgramm extends Application {
             /*
             String kasutaja = sisend.getText();
 
+
+
             try {
                 loetudRaamatud.loeFailist(kasutaja + "LoetudRaamatud.txt");
             } catch (IOException ex) {
@@ -172,6 +175,9 @@ public class RaamatudProgramm extends Application {
             primaryStage.setMinWidth(260);
             primaryStage.setMinHeight(350);
         });
+
+        //minu osa
+
         primaryStage.setScene(algus);
         primaryStage.show();
     }
