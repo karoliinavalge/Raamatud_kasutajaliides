@@ -103,6 +103,21 @@ public class RaamatudProgramm extends Application {
         VBox hetkelLoenVBox = new VBox();
         VBox loetudVBox = new VBox();
 
+        VBox[] raamatuteVBoxid = {tahanLugedaVBox, hetkelLoenVBox, loetudVBox};
+
+        //Vormindus
+        KNHBox.setSpacing(10);
+        KNHBox.setPadding(new Insets(30, 30, 30, 30));
+        for (VBox vbox : raamatuteVBoxid) {
+            vbox.setSpacing(10);
+            vbox.setPadding(new Insets(10, 10, 10, 10));
+        }
+
+        //Lisab nimekirjade pealkirjad VBoxidesse
+        tahanLugedaVBox.getChildren().add(new Text("Tahan lugeda:"));
+        hetkelLoenVBox.getChildren().add(new Text("Hetkel loetavad raamatud:"));
+        loetudVBox.getChildren().add(new Text("Loetud raamatud:"));
+
         //Lisab VBoxidesse raamatud
         for (Raamat raamat : tahanLugeda.raamatud) {
             Text raamatuNimi = new Text(raamat.getPealkiri() + " " + raamat.getAutor());
@@ -117,17 +132,26 @@ public class RaamatudProgramm extends Application {
             loetudVBox.getChildren().add(raamatuNimi);
         }
 
-
-        KNHBox.getChildren().addAll(tahanLugedaVBox, hetkelLoenVBox, loetudVBox);
+        //Kui nimekirjad on tühjad kuvab vastava teate ekraanile
+        if (tahanLugeda.raamatud.isEmpty() && hetkelLoen.raamatud.isEmpty() && loetudRaamatud.raamatud.isEmpty()) {
+            Text tühjadNimekirjad = new Text("Hetkel on kõik nimekirjad tühjad!");
+            KNHBox.getChildren().add(tühjadNimekirjad);
+        }
+        //Kui nimekirjad ei ole tühjad, kuvab nimekirjad
+        else {
+            KNHBox.getChildren().addAll(tahanLugedaVBox, hetkelLoenVBox, loetudVBox);
+        }
         KNgrupp.getChildren().add(KNHBox);
-        Scene KNtseen = new Scene(KNgrupp, 500, 600);
+        Scene KNtseen = new Scene(KNgrupp);
 
 
         //Nuppude funktsionaalsused
         kuva.setOnMouseClicked(e -> {
             primaryStage.setScene(KNtseen);
-            primaryStage.setMinWidth(500);
-            primaryStage.setMinHeight(600);
+            primaryStage.setHeight(KNHBox.getHeight() + 40);
+            primaryStage.setWidth(KNHBox.getWidth());
+            primaryStage.setMinWidth(KNHBox.getWidth());
+            primaryStage.setMinHeight(KNHBox.getHeight() + 40);
         });
 
         /*
