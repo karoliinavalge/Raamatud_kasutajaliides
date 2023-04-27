@@ -13,8 +13,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 
 public class RaamatudProgramm extends Application {
 
@@ -23,7 +21,7 @@ public class RaamatudProgramm extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) {
 
          //sisselogimise ekraan
          Group SLgrupp = new Group();
@@ -36,6 +34,7 @@ public class RaamatudProgramm extends Application {
         SLVbox.getChildren().add(kinnita);
         SLgrupp.getChildren().add(SLVbox);
         Scene algus = new Scene(SLgrupp, 500, 500);
+
 
 
 
@@ -62,10 +61,10 @@ public class RaamatudProgramm extends Application {
         loetud.setPrefWidth(200);
         Button loen = new Button("Lugemisel raamatute nimekiri");
         loen.setPrefWidth(200);
-        Button tahan = new Button("Tahan lugeda");
-        tahan.setPrefWidth(200);
+        Button tahanLugeda = new Button("Tahan lugeda");
+        tahanLugeda.setPrefWidth(200);
 
-        lugemiseVBox.getChildren().addAll(loetud, loen, tahan);
+        lugemiseVBox.getChildren().addAll(loetud, loen, tahanLugeda);
 
         Text tekst = new Text("Mida soovid teha?");
         tegevusedVBox.getChildren().add(tekst);
@@ -90,6 +89,14 @@ public class RaamatudProgramm extends Application {
         }
 
 
+        //Kuva nimekirjad tseen
+
+
+        //nuppude funktsionaalsused
+        kuva.setOnMouseClicked(e -> {
+
+        });
+
 
         /*
         ruudustik.add(loen, 2, 2);
@@ -105,31 +112,6 @@ public class RaamatudProgramm extends Application {
 
         //tegevused
         kinnita.setOnMouseClicked(e -> {
-            LoetudRaamatud loetudRaamatud = new LoetudRaamatud();
-            TahanLugeda tahanLugeda = new TahanLugeda();
-            HetkelLoen hetkelLoen = new HetkelLoen();
-
-            String kasutaja = sisend.getText();
-
-            try {
-                loetudRaamatud.loeFailist(kasutaja + "LoetudRaamatud.txt");
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-
-            try {
-                tahanLugeda.loeFailist(kasutaja + "TahanLugeda.txt");
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-
-            try {
-                hetkelLoen.loeFailist(kasutaja + "HetkelLoen.txt");
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-
-
             primaryStage.setScene(scene);
             primaryStage.setMinWidth(260);
             primaryStage.setMinHeight(350);
@@ -137,6 +119,4 @@ public class RaamatudProgramm extends Application {
         primaryStage.setScene(algus);
         primaryStage.show();
     }
-
-
 }
