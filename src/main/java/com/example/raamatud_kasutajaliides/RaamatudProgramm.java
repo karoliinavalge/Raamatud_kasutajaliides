@@ -95,6 +95,9 @@ public class RaamatudProgramm extends Application {
             tegevusedVBox.getChildren().add(nupp);
         }
 
+        //Lugesin lõpuni tseen
+        Group LLgrupp = new Group();
+        VBox LLVBox = new VBox();
 
         //Kuva nimekirjad tseen
         Group KNgrupp = new Group();
@@ -107,7 +110,7 @@ public class RaamatudProgramm extends Application {
 
         //Vormindus
         KNHBox.setSpacing(10);
-        KNHBox.setPadding(new Insets(30, 30, 30, 30));
+        KNHBox.setPadding(new Insets(30, 40, 30, 30));
         for (VBox vbox : raamatuteVBoxid) {
             vbox.setSpacing(10);
             vbox.setPadding(new Insets(10, 10, 10, 10));
@@ -150,8 +153,7 @@ public class RaamatudProgramm extends Application {
             primaryStage.setScene(KNtseen);
             primaryStage.setHeight(KNHBox.getHeight() + 40);
             primaryStage.setWidth(KNHBox.getWidth());
-            primaryStage.setMinWidth(KNHBox.getWidth());
-            primaryStage.setMinHeight(KNHBox.getHeight() + 40);
+            primaryStage.setResizable(false);
         });
 
         /*
