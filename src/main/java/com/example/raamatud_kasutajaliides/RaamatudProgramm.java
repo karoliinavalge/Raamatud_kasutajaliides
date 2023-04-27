@@ -25,6 +25,11 @@ public class RaamatudProgramm extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
+        //Raamatute listid
+        LoetudRaamatud loetudRaamatud = new LoetudRaamatud();
+        TahanLugeda tahanLugeda = new TahanLugeda();
+        HetkelLoen hetkelLoen = new HetkelLoen();
+
          //sisselogimise ekraan
          Group SLgrupp = new Group();
          VBox SLVbox = new VBox();
@@ -90,6 +95,39 @@ public class RaamatudProgramm extends Application {
         }
 
 
+        //Kuva nimekirjad tseen
+        Group KNgrupp = new Group();
+        HBox KNHBox = new HBox();
+        VBox tahanLugedaVBox = new VBox();
+        VBox hetkelLoenVBox = new VBox();
+        VBox loetudVBox = new VBox();
+
+        //Lisab VBoxidesse raamatud
+        for (Raamat raamat : tahanLugeda.raamatud) {
+            Text raamatuNimi = new Text(raamat.getPealkiri() + " " + raamat.getAutor());
+            tahanLugedaVBox.getChildren().add(raamatuNimi);
+        }
+        for (Raamat raamat : hetkelLoen.raamatud) {
+            Text raamatuNimi = new Text(raamat.getPealkiri() + " " + raamat.getAutor());
+            hetkelLoenVBox.getChildren().add(raamatuNimi);
+        }
+        for (Raamat raamat : loetudRaamatud.raamatud) {
+            Text raamatuNimi = new Text(raamat.getPealkiri() + " " + raamat.getAutor());
+            loetudVBox.getChildren().add(raamatuNimi);
+        }
+
+
+        KNHBox.getChildren().addAll(tahanLugedaVBox, hetkelLoenVBox, loetudVBox);
+        KNgrupp.getChildren().add(KNHBox);
+        Scene KNtseen = new Scene(KNgrupp, 500, 600);
+
+
+        //Nuppude funktsionaalsused
+        kuva.setOnMouseClicked(e -> {
+            primaryStage.setScene(KNtseen);
+            primaryStage.setMinWidth(500);
+            primaryStage.setMinHeight(600);
+        });
 
         /*
         ruudustik.add(loen, 2, 2);
@@ -105,10 +143,8 @@ public class RaamatudProgramm extends Application {
 
         //tegevused
         kinnita.setOnMouseClicked(e -> {
-            LoetudRaamatud loetudRaamatud = new LoetudRaamatud();
-            TahanLugeda tahanLugeda = new TahanLugeda();
-            HetkelLoen hetkelLoen = new HetkelLoen();
 
+            /*
             String kasutaja = sisend.getText();
 
             try {
@@ -128,6 +164,8 @@ public class RaamatudProgramm extends Application {
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
+
+             */
 
 
             primaryStage.setScene(scene);
