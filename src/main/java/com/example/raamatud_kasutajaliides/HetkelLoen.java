@@ -26,7 +26,9 @@ public class HetkelLoen extends Nimekiri {
                 String rida = br.readLine();
                 if (rida == null) break;
                 String[] osad = rida.trim().split(";");
-                lisaRaamat(osad[0], osad[1], Integer.parseInt(osad[2]), Integer.parseInt(osad[3]));
+                super.lisaRaamat(osad[0], osad[1], Integer.parseInt(osad[2]), Integer.parseInt(osad[3]));
+                System.out.println("lisan raamatu");
+                System.out.println(raamatud.size());
             }
         }
     }

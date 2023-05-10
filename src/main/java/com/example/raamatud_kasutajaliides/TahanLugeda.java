@@ -20,7 +20,9 @@ public class TahanLugeda extends Nimekiri {
                 String rida = br.readLine();
                 if (rida == null) break;
                 String[] osad = rida.trim().split(";");
-                lisaRaamat(osad[0], osad[1], Integer.parseInt(osad[2]));
+                super.lisaRaamat(osad[0], osad[1], Integer.parseInt(osad[2]),0);
+                System.out.println("lisan raamatu");
+                System.out.println(raamatud.size());
             }
         }
     }
