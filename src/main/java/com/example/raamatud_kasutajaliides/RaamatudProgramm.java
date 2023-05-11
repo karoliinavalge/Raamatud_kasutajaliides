@@ -45,14 +45,19 @@ public class RaamatudProgramm extends Application {
          //sisselogimise ekraan
          Group SLgrupp = new Group();
          VBox SLVbox = new VBox();
+         SLVbox.setSpacing(10);
+         SLVbox.setPadding(new Insets(30, 30, 30, 30));
          Text sisestaNimi = new Text("Sisestage oma nimi:");
          TextField sisend = new TextField();
          Button kinnita = new Button("Logi sisse");
-         SLVbox.getChildren().add(sisestaNimi);
-        SLVbox.getChildren().add(sisend);
-        SLVbox.getChildren().add(kinnita);
+        SLVbox.getChildren().addAll(sisestaNimi, sisend, kinnita);
         SLgrupp.getChildren().add(SLVbox);
-        Scene algus = new Scene(SLgrupp, 500, 500);
+        Scene algus = new Scene(SLgrupp, 300, 150);
+
+        // Listeneri kasutamine vastavalt stage'i laiuse muutmisele
+        primaryStage.widthProperty().addListener(((observable, oldValue, newValue) -> {
+            sisend.setPrefWidth(newValue.doubleValue() - 150);
+        }));
 
 
         //peaekraan
@@ -100,6 +105,8 @@ public class RaamatudProgramm extends Application {
             primaryStage.setScene(scene);
             primaryStage.setMinWidth(260);
             primaryStage.setMinHeight(350);
+            // Kasutame setResizable(false), et poleks võimalik muudes kohtades ekraani suurust muuta
+            primaryStage.setResizable(false);
         });
 
 
@@ -399,6 +406,8 @@ public class RaamatudProgramm extends Application {
             }
         });
         primaryStage.setScene(algus);
+        primaryStage.setMinHeight(200);
+        primaryStage.setMinWidth(300);
         primaryStage.show();
 
 
