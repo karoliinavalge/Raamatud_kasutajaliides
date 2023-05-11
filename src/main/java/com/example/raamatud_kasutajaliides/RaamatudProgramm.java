@@ -140,42 +140,93 @@ public class RaamatudProgramm extends Application {
         Button lisanHetkel = new Button("Hetkel loen");
         Button lisanLoetud = new Button("Loetud raamatud");
         Button lisanTahan = new Button("Tahan lugeda");
+
+        Button[] nimekirjaNupud = {lisanHetkel, lisanLoetud, lisanTahan};
+
+        //Nuppude vormindus
+        for (Button nupp : nimekirjaNupud) {
+            nupp.setPrefWidth(200);
+            nupp.setPrefHeight(30);
+        }
+
         VBox RLVbox = new VBox();
         RLVbox.getChildren().addAll(RLvali,lisanHetkel,lisanLoetud,lisanTahan);
+
+        //VBoxi vormindus
+        RLVbox.setSpacing(10);
+        RLVbox.setPadding(new Insets(30, 30, 30, 30));
+
         Scene LRstseen = new Scene(RLVbox);
 
+
+        //Hetkel loetavate raamatute tekstid
+        TextField tfLisaHetkelPealkiri = new TextField();
+        TextField tfLisaHetkelAutor = new TextField();
+        TextField tfLisaHetkelLehekülgi = new TextField();
+        TextField tfLoetudLehekülgi = new TextField();
+
+        //Hetkel loetavad raamatud
+        VBox LHVbox = new VBox();
+        LHVbox.setSpacing(10);
+        LHVbox.setPadding(new Insets(30, 30, 30, 30));
+        Button kinnitaLisanH = new Button("Lisa");
+        LHVbox.getChildren().addAll(new Text("Pealkiri: "),tfLisaHetkelPealkiri,new Text("Autor: "),tfLisaHetkelAutor,
+                new Text("Lehekülgi: "),tfLisaHetkelLehekülgi,new Text("Loetud lehekülgi: "),tfLoetudLehekülgi,kinnitaLisanH);
+        Scene lisanHstseen = new Scene(LHVbox);
+
+        //Loetud raamatute tekstid
+        TextField tfLisaLoetudPealkiri = new TextField();
+        TextField tfLisaLoetudAutor = new TextField();
+        TextField tfLisaLoetudLehekülgi = new TextField();
+        Text sHinnang = new Text("Hinnang:");
+        TextField tfHinnang = new TextField();
+
+        //Loetud raamatud
+        VBox LLVbox = new VBox();
+        LLVbox.setSpacing(10);
+        LLVbox.setPadding(new Insets(30, 30, 30, 30));
+        Button kinnitaLisanL = new Button("Lisa");
+        LLVbox.getChildren().addAll(new Text("Pealkiri: "),tfLisaLoetudPealkiri,new Text("Autor: "),tfLisaLoetudAutor,
+                new Text("Lehekülgi: "),tfLisaLoetudLehekülgi,sHinnang,tfHinnang,kinnitaLisanL);
+        Scene lisanLstseen = new Scene(LLVbox);
+
+        //Tahan lugeda tekstid
         Text sPealkiri = new Text("Pealkiri:");
         TextField tfPealkiri = new TextField();
         Text sAutor = new Text("Autor:");
         TextField tfAutor = new TextField();
         Text sLehekülgi = new Text("Lehekülgi:");
         TextField tfLehekülgi = new TextField();
-        Text sLoetudLehekülgi = new Text("Loetud lehekülgi:");
-        TextField tfLoetudLehekülgi = new TextField();
-        Text sHinnang = new Text("Hinnang:");
-        TextField tfHinnang = new TextField();
-        Text mitu = new Text("Teest");
 
-        VBox LHVbox = new VBox();
-        Button kinnitaLisanH = new Button("Lisa");
-        LHVbox.getChildren().addAll(sPealkiri,tfPealkiri,sAutor,tfAutor,sLehekülgi,tfLehekülgi,sLoetudLehekülgi,tfLoetudLehekülgi,kinnitaLisanH);
-        Scene lisanHstseen = new Scene(LHVbox);
-
-        VBox LLVbox = new VBox();
-        Button kinnitaLisanL = new Button("Lisa");
-        LLVbox.getChildren().addAll(sPealkiri,tfPealkiri,sAutor,tfAutor,sLehekülgi,tfLehekülgi,sHinnang,tfHinnang,kinnitaLisanL, mitu);
-        Scene lisanLstseen = new Scene(LLVbox);
-
+        //Tahan lugeda raamatud
         VBox LTVbox = new VBox();
+        LTVbox.setSpacing(10);
+        LTVbox.setPadding(new Insets(30, 30, 30, 30));
         Button kinnitaLisanT = new Button("Lisa");
-        LTVbox.getChildren().addAll(sPealkiri,tfPealkiri,sAutor,tfAutor,sLehekülgi,tfLehekülgi,kinnitaLisanT, mitu);
+        LTVbox.getChildren().addAll(sPealkiri,tfPealkiri,sAutor,tfAutor,sLehekülgi,tfLehekülgi,kinnitaLisanT);
         Scene lisanTstseen = new Scene(LTVbox);
 
         //nuppude funktsionaalsused
-        lisaRaamat.setOnMouseClicked(e -> primaryStage.setScene(LRstseen));
-        lisanHetkel.setOnMouseClicked(e -> primaryStage.setScene(lisanHstseen));
-        lisanLoetud.setOnMouseClicked(e -> primaryStage.setScene(lisanLstseen));
-        lisanTahan.setOnMouseClicked(e -> primaryStage.setScene(lisanTstseen));
+        lisaRaamat.setOnMouseClicked(e -> {
+            primaryStage.setScene(LRstseen);
+            primaryStage.setWidth(LRstseen.getWidth());
+            primaryStage.setHeight(LRstseen.getHeight());
+        });
+        lisanHetkel.setOnMouseClicked(e -> {
+            primaryStage.setScene(lisanHstseen);
+            primaryStage.setWidth(lisanHstseen.getWidth());
+            primaryStage.setHeight(lisanHstseen.getHeight());
+        });
+        lisanLoetud.setOnMouseClicked(e -> {
+            primaryStage.setScene(lisanLstseen);
+            primaryStage.setWidth(lisanLstseen.getWidth());
+            primaryStage.setHeight(lisanLstseen.getHeight());
+        });
+        lisanTahan.setOnMouseClicked(e -> {
+            primaryStage.setScene(lisanTstseen);
+            primaryStage.setWidth(lisanTstseen.getWidth());
+            primaryStage.setHeight(lisanTstseen.getHeight());
+        });
 
         kinnitaLisanT.setOnMouseClicked(e-> {
             String pealkiri = tfPealkiri.getText();
@@ -227,7 +278,6 @@ public class RaamatudProgramm extends Application {
                             primaryStage.setMinHeight(scene.getHeight());
                         }
                     });
-
 
                 });
                 LLVBox.getChildren().add(loetavaRaamatuNupp);
