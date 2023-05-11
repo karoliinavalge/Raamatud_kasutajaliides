@@ -235,6 +235,7 @@ public class RaamatudProgramm extends Application {
             primaryStage.setHeight(lisanTstseen.getHeight());
         });
 
+        //lisa raamat, mida tahetakse lugeda
         kinnitaLisanT.setOnMouseClicked(e-> {
             try {
                 String pealkiri = tfPealkiri.getText();
@@ -249,11 +250,12 @@ public class RaamatudProgramm extends Application {
                 valeSisend.show();
             }
         });
+        //lisa loetud raamatute nimekirja
         kinnitaLisanL.setOnMouseClicked(e -> {
             try {
-                String pealkiri = tfPealkiri.getText();
-                String autor = tfAutor.getText();
-                int lehekülgi = Integer.parseInt(tfLehekülgi.getText());
+                String pealkiri = tfLisaLoetudPealkiri.getText();
+                String autor = tfLisaLoetudAutor.getText();
+                int lehekülgi = Integer.parseInt(tfLisaLoetudLehekülgi.getText());
                 int hinnang = Integer.parseInt(tfHinnang.getText());
                 if (hinnang < 1 || hinnang > 5) throw new FormaadiErind("");
                 loetudRaamatud.lisaRaamat(pealkiri,autor,lehekülgi,hinnang);
@@ -270,6 +272,8 @@ public class RaamatudProgramm extends Application {
                 valeSisend.show();
             }
         });
+
+        //lisa raamat hektel loetavate raamatute nimekirja
 
 
 
