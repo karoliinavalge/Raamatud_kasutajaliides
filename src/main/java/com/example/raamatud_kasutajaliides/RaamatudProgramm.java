@@ -59,6 +59,7 @@ public class RaamatudProgramm extends Application {
             sisend.setPrefWidth(newValue.doubleValue() - 150);
         }));
 
+
         //peaekraan
         Group grupp = new Group();
         BorderPane peaBorder = new BorderPane();
@@ -249,11 +250,12 @@ public class RaamatudProgramm extends Application {
                 valeSisend.show();
             }
         });
+        //lisa loetud raamatute nimekirja
         kinnitaLisanL.setOnMouseClicked(e -> {
             try {
-                String pealkiri = tfPealkiri.getText();
-                String autor = tfAutor.getText();
-                int lehekülgi = Integer.parseInt(tfLehekülgi.getText());
+                String pealkiri = tfLisaLoetudPealkiri.getText();
+                String autor = tfLisaLoetudAutor.getText();
+                int lehekülgi = Integer.parseInt(tfLisaLoetudLehekülgi.getText());
                 int hinnang = Integer.parseInt(tfHinnang.getText());
                 if (hinnang < 1 || hinnang > 5) throw new FormaadiErind("");
                 loetudRaamatud.lisaRaamat(pealkiri,autor,lehekülgi,hinnang);
