@@ -223,6 +223,8 @@ public class RaamatudProgramm extends Application {
                     kinnitus.showAndWait().ifPresent(response -> {
                         if (response == ButtonType.OK) {
                             primaryStage.setScene(scene);
+                            primaryStage.setMinWidth(scene.getWidth());
+                            primaryStage.setMinHeight(scene.getHeight());
                         }
                     });
 
