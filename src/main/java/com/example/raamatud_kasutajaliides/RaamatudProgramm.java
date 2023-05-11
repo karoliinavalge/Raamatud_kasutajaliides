@@ -245,12 +245,10 @@ public class RaamatudProgramm extends Application {
                 teade("Raamat \"" + pealkiri + "\" on lisatud nimekirja 'Tahan lugeda'", primaryStage, scene);
             }
             catch (NumberFormatException erind){
-                Alert valeSisend = new Alert(Alert.AlertType.ERROR);
-                valeSisend.setContentText("Lehekülgede arv peab olema täisarv!");
-                valeSisend.show();
+                valeSisendTeade("Lehekülgede arv peab olema täisarv!");
             }
         });
-        //lisa loetud raamatute nimekirja
+        //Loetud raamatud
         kinnitaLisanL.setOnMouseClicked(e -> {
             try {
                 String pealkiri = tfLisaLoetudPealkiri.getText();
@@ -262,17 +260,96 @@ public class RaamatudProgramm extends Application {
                 teade("Raamat \"" + pealkiri + "\" on lisatud nimekirja 'Loetud raamatud'", primaryStage, scene);
             }
             catch (NumberFormatException erind){
-                Alert valeSisend = new Alert(Alert.AlertType.ERROR);
-                valeSisend.setContentText("Lehekülgede arv ja hinnang peavad olema täisarvud!");
-                valeSisend.show();
+                valeSisendTeade("Lehekülgede arv ja hinnang peavad olema täisarvud!");
             }
             catch (RuntimeException erind){
-                Alert valeSisend = new Alert(Alert.AlertType.ERROR);
-                valeSisend.setContentText("Hinnang peab olema täisarv 1-st 5-ni!");
-                valeSisend.show();
+                valeSisendTeade("Hinnang peab olema täisarv 1-st 5-ni!");
+            }
+        });
+        //Hetkel loen
+        kinnitaLisanH.setOnMouseClicked(e -> {
+            try {
+                String pealkiri = tfLisaHetkelPealkiri.getText();
+                String autor = tfLisaHetkelAutor.getText();
+                int lehekülgi = Integer.parseInt(tfLisaHetkelLehekülgi.getText());
+                int loetudLehekülgi = Integer.parseInt(tfLoetudLehekülgi.getText());
+                if (loetudLehekülgi > lehekülgi) throw new FormaadiErind("");
+                hetkelLoen.lisaRaamat(pealkiri,autor,lehekülgi,loetudLehekülgi);
+                teade("Raamat \"" + pealkiri + "\" on lisatud nimekirja 'Hetkel loen'", primaryStage, scene);
+            }
+            catch (NumberFormatException erind){
+                valeSisendTeade("Lehekülgede arvud peavad olema täisarvud!");
+            }
+            catch (RuntimeException erind){
+                valeSisendTeade("Loetud lehekülgede arv ei saa olla suurem kui kogu lehekülgede arv!");
             }
         });
 
+        //lehekülje lisamine
+        VBox lisaLVBOX = new VBox();
+        Text sLisaLehekülgi = new Text("Mitu lehekülge juurde lugesid?");
+        TextField tfLisaLehekülgi = new TextField();
+        Button bLisaLehekülgi = new Button("Lisa");
+        lisaLVBOX.getChildren().addAll(sLisaLehekülgi, tfLisaLehekülgi,bLisaLehekülgi);
+        Scene lisaLStseen = new Scene(lisaLVBOX);
+
+
+
+        VBox LLisamineVBox = new VBox();
+        Text valiRaamat = new Text("Vali raamat:");
+        LLisamineVBox.getChildren().add(valiRaamat);
+        //hetkel katki, ei loe ühtegi raamatut nimekirjast
+        for (Raamat loetavRaamat: hetkelLoen.raamatud){
+            Button loetavaRaamatuNupp = new Button("\"" + loetavRaamat.getPealkiri() + "\" - " + loetavRaamat.getAutor());
+            loetavaRaamatuNupp.setOnMouseClicked(event -> {
+                String pealkiri = loetavRaamat.getPealkiri();
+                primaryStage.setScene(lisaLStseen);
+                bLisaLehekülgi.setOnMouseClicked(e -> {
+                    try {
+                        int lehekülgiJuurde = Integer.parseInt(tfLisaLehekülgi.getText());
+                        if (loetavRaamat.getLoetudLehekülgi() + lehekülgiJuurde > loetavRaamat.getLehekülgi())
+                            throw new FormaadiErind("");
+                        hetkelLoen.lugesinJuurde(pealkiri,lehekülgiJuurde);
+                        teade("Leheküljed lisati juurde!", primaryStage, scene);
+                    }
+                    catch (NumberFormatException erind){
+                        valeSisendTeade("lehekülgede arv peab olema täisarv!");
+                    }
+                    catch (RuntimeException erind){
+                        valeSisendTeade("arv on liiga suur!");
+                    }
+                });
+            });
+            LLisamineVBox.getChildren().add(loetavaRaamatuNupp);
+        }
+        Scene leheküljeLisamiseStseen = new Scene(LLisamineVBox);
+
+        lisaLehekülgi.setOnMouseClicked(e -> primaryStage.setScene(leheküljeLisamiseStseen));
+
+        //hakkasin lugema grupp
+        Group HLgrupp = new Group();
+        VBox HLVBox = new VBox();
+
+        //hakkasin lugema nupp
+        hakkasinLugema.setOnMouseClicked(e -> {
+            HLgrupp.getChildren().add(new Text("Millist raamatut hakkad lugema?"));
+            for (Raamat raamat: tahanLugeda.raamatud) {
+                Button raamatuNupp = new Button("\"" + raamat.getPealkiri() + "\" - " + raamat.getAutor());
+                raamatuNupp.setOnMouseClicked(event -> {
+                    String pealkiri = raamat.getPealkiri();
+                    hakkanLugema(pealkiri, tahanLugeda, hetkelLoen);
+                    teade("Raamat on lisatud õigesse nimekrija", primaryStage, scene);
+                });
+                HLVBox.getChildren().add(raamatuNupp);
+            }
+            HLgrupp.getChildren().add(HLVBox);
+            Scene LLtseen = new Scene(HLgrupp);
+
+            primaryStage.setScene(LLtseen);
+            primaryStage.setHeight(HLVBox.getHeight() + 40);
+            primaryStage.setWidth(HLVBox.getWidth());
+            primaryStage.setResizable(false);
+        });
 
 
 
@@ -313,9 +390,9 @@ public class RaamatudProgramm extends Application {
                 LLVBox.getChildren().add(loetavaRaamatuNupp);
             }
             LLgrupp.getChildren().add(LLVBox);
-            Scene LLtseen = new Scene(LLgrupp);
+            Scene LLõtseen = new Scene(LLgrupp);
 
-            primaryStage.setScene(LLtseen);
+            primaryStage.setScene(LLõtseen);
             primaryStage.setHeight(LLVBox.getHeight() + 40);
             primaryStage.setWidth(LLVBox.getWidth());
             primaryStage.setResizable(false);
@@ -449,6 +526,16 @@ public class RaamatudProgramm extends Application {
         }
     }
 
+    public void hakkanLugema(String pealkiri, Nimekiri tahanLugeda, Nimekiri hetkelLoen){
+        for (Raamat raamat : tahanLugeda.raamatud) {
+            if (raamat.getPealkiri().equals(pealkiri)) {
+                if (tahanLugeda.raamatud.contains(raamat)) tahanLugeda.eemaldaRaamat(raamat);
+            }
+            hetkelLoen.lisaRaamat(raamat);
+            break;
+        }
+    }
+
     public void teade(String sõnum, Stage primaryStage, Scene stseen){
         Alert kinnitus = new Alert(Alert.AlertType.CONFIRMATION);
         kinnitus.setContentText(sõnum);
@@ -463,6 +550,12 @@ public class RaamatudProgramm extends Application {
 
             }
         });
+    }
+
+    public void valeSisendTeade(String sõnum){
+        Alert valeSisend = new Alert(Alert.AlertType.ERROR);
+        valeSisend.setContentText(sõnum);
+        valeSisend.show();
     }
 
 }
