@@ -59,7 +59,6 @@ public class RaamatudProgramm extends Application {
             sisend.setPrefWidth(newValue.doubleValue() - 150);
         }));
 
-
         //peaekraan
         Group grupp = new Group();
         BorderPane peaBorder = new BorderPane();
@@ -235,6 +234,7 @@ public class RaamatudProgramm extends Application {
             primaryStage.setHeight(lisanTstseen.getHeight());
         });
 
+        //Tahan lugeda
         kinnitaLisanT.setOnMouseClicked(e-> {
             try {
                 String pealkiri = tfPealkiri.getText();
@@ -453,8 +453,12 @@ public class RaamatudProgramm extends Application {
         kinnitus.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
                 primaryStage.setScene(stseen);
-                primaryStage.setMinWidth(stseen.getWidth());
-                primaryStage.setMinHeight(stseen.getHeight());
+                //primaryStage.setMinWidth(stseen.getWidth());
+                //primaryStage.setMinHeight(stseen.getHeight());
+                primaryStage.setWidth(260);
+                primaryStage.setHeight(350);
+                primaryStage.setResizable(false);
+
             }
         });
     }
