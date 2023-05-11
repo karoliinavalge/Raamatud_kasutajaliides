@@ -135,6 +135,59 @@ public class RaamatudProgramm extends Application {
             tegevusedVBox.getChildren().add(nupp);
         }
 
+        //raamatu lisamine
+        Text RLvali = new Text("Millisesse nimekirja soovite raamatu lisada?");
+        Button lisanHetkel = new Button("Hetkel loen");
+        Button lisanLoetud = new Button("Loetud raamatud");
+        Button lisanTahan = new Button("Tahan lugeda");
+        VBox RLVbox = new VBox();
+        RLVbox.getChildren().addAll(RLvali,lisanHetkel,lisanLoetud,lisanTahan);
+        Scene LRstseen = new Scene(RLVbox);
+
+        Text sPealkiri = new Text("Pealkiri:");
+        TextField tfPealkiri = new TextField();
+        Text sAutor = new Text("Autor:");
+        TextField tfAutor = new TextField();
+        Text sLehekülgi = new Text("Lehekülgi:");
+        TextField tfLehekülgi = new TextField();
+        Text sLoetudLehekülgi = new Text("Loetud lehekülgi:");
+        TextField tfLoetudLehekülgi = new TextField();
+        Text sHinnang = new Text("Hinnang:");
+        TextField tfHinnang = new TextField();
+        Text mitu = new Text("Teest");
+
+        VBox LHVbox = new VBox();
+        Button kinnitaLisanH = new Button("Lisa");
+        LHVbox.getChildren().addAll(sPealkiri,tfPealkiri,sAutor,tfAutor,sLehekülgi,tfLehekülgi,sLoetudLehekülgi,tfLoetudLehekülgi,kinnitaLisanH);
+        Scene lisanHstseen = new Scene(LHVbox);
+
+        VBox LLVbox = new VBox();
+        Button kinnitaLisanL = new Button("Lisa");
+        LLVbox.getChildren().addAll(sPealkiri,tfPealkiri,sAutor,tfAutor,sLehekülgi,tfLehekülgi,sHinnang,tfHinnang,kinnitaLisanL, mitu);
+        Scene lisanLstseen = new Scene(LLVbox);
+
+        VBox LTVbox = new VBox();
+        Button kinnitaLisanT = new Button("Lisa");
+        LTVbox.getChildren().addAll(sPealkiri,tfPealkiri,sAutor,tfAutor,sLehekülgi,tfLehekülgi,kinnitaLisanT, mitu);
+        Scene lisanTstseen = new Scene(LTVbox);
+
+        //nuppude funktsionaalsused
+        lisaRaamat.setOnMouseClicked(e -> primaryStage.setScene(LRstseen));
+        lisanHetkel.setOnMouseClicked(e -> primaryStage.setScene(lisanHstseen));
+        lisanLoetud.setOnMouseClicked(e -> primaryStage.setScene(lisanLstseen));
+        lisanTahan.setOnMouseClicked(e -> primaryStage.setScene(lisanTstseen));
+
+        kinnitaLisanT.setOnMouseClicked(e-> {
+            String pealkiri = tfPealkiri.getText();
+            String autor = tfAutor.getText();
+            int lehekülgi = Integer.parseInt(tfLehekülgi.getText());
+        });
+
+
+
+
+
+
         //Lugesin lõpuni tseen
         Group LLgrupp = new Group();
         VBox LLVBox = new VBox();
@@ -142,6 +195,19 @@ public class RaamatudProgramm extends Application {
         //Vormindus
         LLVBox.setPadding(new Insets(30, 30, 30, 30));
         LLVBox.setSpacing(10);
+
+        //hinnangu andmise ekraan
+        /*
+        Group hinnangGrupp = new Group();
+        VBox HGVbox = new VBox();
+        Text sisestaHinnang = new Text("Sisestage hinnang loetud raamatule:");
+        TextField Hsisend = new TextField();
+        Button Hkinnita = new Button("Sisesta");
+        HGVbox.getChildren().addAll(sisestaHinnang,Hsisend, Hkinnita);
+        hinnangGrupp.getChildren().add(SLVbox);
+        Scene hinnanguAndmine = new Scene(SLgrupp, 500, 500);
+
+         */
 
 
         //lugesinLõpuni nupu funktsionaalsus
@@ -152,7 +218,6 @@ public class RaamatudProgramm extends Application {
                 loetavaRaamatuNupp.setOnMouseClicked(event -> {
                     String pealkiri = loetavRaamat.getPealkiri();
                     lugesinLõpuni(pealkiri, hetkelLoen, loetudRaamatud);
-                    System.out.println("tegin ära lugesinLõpuni");
                     Alert kinnitus = new Alert(Alert.AlertType.CONFIRMATION);
                     kinnitus.setContentText("Lisasin raamatu õigesse nimekirja");
                     kinnitus.showAndWait().ifPresent(response -> {
@@ -173,6 +238,28 @@ public class RaamatudProgramm extends Application {
             primaryStage.setWidth(LLVBox.getWidth());
             primaryStage.setResizable(false);
         });
+
+        //Vali juhuslik raamat
+        Group JRgrupp = new Group();
+        VBox JRVBox = new VBox();
+        Text valiNimekiri = new Text("Millisest nimekirjast soovite raamatut valida?");
+        Button valiHetkel = new Button("Hetkel loen");
+        Button valiLoetud = new Button("Loetud raamatud");
+        Button valiTahan = new Button("Tahan lugeda");
+        Text juhuslik = new Text("");
+        JRVBox.getChildren().addAll(valiNimekiri, valiHetkel, valiLoetud, valiTahan, juhuslik);
+        valiHetkel.setOnMouseClicked(e -> {
+            juhuslik.setText("Juhuslikult valitud raamat on \"" + hetkelLoen.valiSuvaline().getPealkiri() + "\"" );
+        });
+        valiLoetud.setOnMouseClicked(e -> {
+            juhuslik.setText("Juhuslikult valitud raamat on \"" + loetudRaamatud.valiSuvaline().getPealkiri() + "\"" );
+        });
+        valiTahan.setOnMouseClicked(e -> {
+            juhuslik.setText("Juhuslikult valitud raamat on \"" + tahanLugeda.valiSuvaline().getPealkiri() + "\"" );
+        });
+        JRgrupp.getChildren().add(JRVBox);
+        Scene JRstseen = new Scene(JRgrupp);
+        valiJuhuslik.setOnMouseClicked(e -> primaryStage.setScene(JRstseen));
 
         //Kuva nimekirjad tseen
         Group KNgrupp = new Group();
@@ -241,12 +328,24 @@ public class RaamatudProgramm extends Application {
 
         //peaHBox.getChildren().add(tegevusedVBox);
 
-
-
-
-
-
-
+        primaryStage.setOnCloseRequest(event -> {
+            System.out.println("Stage is closing");
+            try {
+                loetudRaamatud.kirjutaFaili("loetud.txt");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                hetkelLoen.kirjutaFaili("hetkel.txt");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                tahanLugeda.kirjutaFaili("tahan.txt");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         primaryStage.setScene(algus);
         primaryStage.show();
 
@@ -258,12 +357,7 @@ public class RaamatudProgramm extends Application {
             if (raamat.getPealkiri().equals(pealkiri)) {
                 hetkelLoen.eemaldaRaamat(raamat);
                 String hinnang = "-1";
-                //Küsib kasutajalt hinnangut seni kuni kasutaja sisestab täisarvu vahemikus 1-5
-                /**
-                 while (Integer.parseInt(hinnang) < 0 || Integer.parseInt(hinnang) > 5)
-                 hinnang = JOptionPane.showInputDialog(null, "Sisestage hinnang loetud raamatule (1-5) ", "Andmete sisestamine",
-                 JOptionPane.QUESTION_MESSAGE);
-                 */
+
                 raamat.setHinnang(Integer.parseInt(hinnang));
                 loetudRaamatud.lisaRaamat(raamat);
                 break;
